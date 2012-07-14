@@ -1,0 +1,1 @@
+Mojolicious::Plugin::BindSessionToIP - Binds your Mojolicious session to IP-address for better security of your application
