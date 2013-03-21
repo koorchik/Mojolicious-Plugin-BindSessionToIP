@@ -5,9 +5,11 @@ use Test::More;
 use Mojolicious::Lite;
 use Test::Mojo;
 
-### INIT 
+# INIT
 plugin 'RemoteAddr';
-plugin 'BindSessionToIP';
+plugin 'BindSessionToIP' => {
+    on_error => sub { shift->render_text('custom_error_handler', status => 201) }
+};
 
 get '/fill_session' => sub {
     my $self = shift;
@@ -20,12 +22,12 @@ get '/check_session' => sub {
     $self->render_text( $self->session( 'status') );
 };
 
-
-### TESTS
+# TESTS
 my $t = Test::Mojo->new;
 $t->get_ok('/fill_session')->status_is(200)->content_is('DONE');
 $t->get_ok('/check_session')->status_is(200)->content_is('AUTHENTICATED');
 $t->get_ok('/check_session')->status_is(200)->content_is('AUTHENTICATED');
+
 
 # Change IP
 $t->ua->on( start => sub {
@@ -33,7 +35,7 @@ $t->ua->on( start => sub {
     $tx->req->headers->header( 'X-Real-IP', '1.1.1.1' );
 });
  
-$t->get_ok('/check_session')->status_is(302)->header_like('Location' => qr'^https?://[^/]+/$');
+$t->get_ok('/check_session')->status_is(201)->content_is('custom_error_handler');
 $t->get_ok('/check_session')->status_is(200);
 
 
