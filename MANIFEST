@@ -1,0 +1,7 @@
+lib/Mojolicious/Plugin/BindSessionToIP.pm
+t/basic.t
+t/on_error.t
+Changes
+Makefile.PL
+README.pod
+MANIFEST
