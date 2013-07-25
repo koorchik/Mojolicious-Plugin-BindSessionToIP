@@ -8,18 +8,18 @@ use Test::Mojo;
 # INIT
 plugin 'RemoteAddr';
 plugin 'BindSessionToIP' => {
-    on_error => sub { shift->render_text('custom_error_handler', status => 201) }
+    on_error => sub { shift->render(text => 'custom_error_handler', status => 201) }
 };
 
 get '/fill_session' => sub {
     my $self = shift;
     $self->session( 'status' => 'AUTHENTICATED' );
-    $self->render_text('DONE');
+    $self->render(text => 'DONE');
 };
 
 get '/check_session' => sub {
     my $self = shift;
-    $self->render_text( $self->session( 'status') );
+    $self->render(text => $self->session( 'status') );
 };
 
 # TESTS
