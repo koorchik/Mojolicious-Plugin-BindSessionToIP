@@ -1,3 +1,5 @@
 0.01
-    
     First release.
+
+0.02 
+    Replaced render_text calls for compatibility with Mojolicious 4.*

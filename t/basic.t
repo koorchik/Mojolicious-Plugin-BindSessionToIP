@@ -12,12 +12,12 @@ plugin 'BindSessionToIP';
 get '/fill_session' => sub {
     my $self = shift;
     $self->session( 'status' => 'AUTHENTICATED' );
-    $self->render(text => 'DONE');
+    $self->render( text => 'DONE' );
 };
 
 get '/check_session' => sub {
     my $self = shift;
-    $self->render(text => $self->session( 'status') );
+    $self->render( text => $self->session( 'status') );
 };
 
 

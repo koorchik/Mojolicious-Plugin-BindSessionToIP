@@ -1,7 +1,7 @@
 package Mojolicious::Plugin::BindSessionToIP;
 use Mojo::Base 'Mojolicious::Plugin';
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 use v5.10;
 use Data::Dumper;
 
