@@ -1,7 +1,7 @@
 package Mojolicious::Plugin::BindSessionToIP;
 use Mojo::Base 'Mojolicious::Plugin';
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 use v5.10;
 use Data::Dumper;
 
@@ -30,8 +30,8 @@ sub register {
                     $self->_destroy_session($c);
                     $c->session('bind_session_to_ip.ip' => $req_ip);
                     return $on_error->($c);
-                } 
-                
+                }
+
                 $c->session('bind_session_to_ip.ip' => $req_ip);
             }
 
@@ -39,7 +39,7 @@ sub register {
         },
     );
 }
-   
+
 
 sub _destroy_session {
     my ( $self, $c ) = @_;
@@ -47,7 +47,7 @@ sub _destroy_session {
 
     foreach my $key (keys %$session) {
         $session->{$key} = '';
-    } 
+    }
 }
 
 1;
@@ -69,8 +69,8 @@ Mojolicious::Plugin::BindSessionToIP - Binds your Mojolicious session to IP-addr
 
 =head1 DESCRIPTION
 
-L<Mojolicious::Plugin::BindSessionToIP> binds your Mojolicious session to IP-address for better security of your application.  
-If client IP was changed then the plugin will clean client's sessions and will redirect to '/'. 
+L<Mojolicious::Plugin::BindSessionToIP> binds your Mojolicious session to IP-address for better security of your application.
+If client IP was changed then the plugin will clean client's sessions and will redirect to '/'.
 It uses L<Mojolicious::Plugin::RemoteAddr>, so please check "order" option.
 
 =head1 CONFIG

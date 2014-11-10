@@ -5,7 +5,7 @@ use Test::More;
 use Mojolicious::Lite;
 use Test::Mojo;
 
-### INIT 
+### INIT
 plugin 'RemoteAddr';
 plugin 'BindSessionToIP';
 
@@ -32,8 +32,8 @@ $t->ua->on( start => sub {
     my ( $ua, $tx ) = @_;
     $tx->req->headers->header( 'X-Real-IP', '1.1.1.1' );
 });
- 
-$t->get_ok('/check_session')->status_is(302)->header_like('Location' => qr'^https?://[^/]+/$');
+
+$t->get_ok('/check_session')->status_is(302)->header_like('Location' => qr'^(?:https?://[^/]+/|/)$');
 $t->get_ok('/check_session')->status_is(200);
 
 
